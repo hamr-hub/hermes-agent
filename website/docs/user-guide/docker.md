@@ -21,7 +21,7 @@ If this is your first time running Hermes Agent, create a data directory on the 
 mkdir -p ~/.hermes
 docker run -it --rm \
   -v ~/.hermes:/opt/data \
-  nousresearch/hermes-agent setup
+  hamr-hub/Hermes-Agent setup
 ```
 
 This drops you into the setup wizard, which will prompt you for your API keys and write them to `~/.hermes/.env`. You only need to do this once. It is highly recommended to set up a chat system for the gateway to work with at this point.
@@ -36,7 +36,7 @@ docker run -d \
   --restart unless-stopped \
   -v ~/.hermes:/opt/data \
   -p 8642:8642 \
-  nousresearch/hermes-agent gateway run
+  hamr-hub/Hermes-Agent gateway run
 ```
 
 Port 8642 exposes the gateway's [OpenAI-compatible API server](./api-server.md) and health endpoint. It's optional if you only use chat platforms (Telegram, Discord, etc.), but required if you want the dashboard or external tools to reach the gateway.
@@ -56,7 +56,7 @@ docker run -d \
   -v ~/.hermes:/opt/data \
   -p 9119:9119 \
   -e GATEWAY_HEALTH_URL=http://$HOST_IP:8642 \
-  nousresearch/hermes-agent dashboard
+  hamr-hub/Hermes-Agent dashboard
 ```
 
 Replace `$HOST_IP` with the IP address of the machine running the gateway container (e.g. `192.168.1.100`), or use a Docker network hostname if both containers share a network (see the [Compose example](#docker-compose-example) below).
@@ -75,7 +75,7 @@ To open an interactive chat session against a running data directory:
 ```sh
 docker run -it --rm \
   -v ~/.hermes:/opt/data \
-  nousresearch/hermes-agent
+  hamr-hub/Hermes-Agent
 ```
 
 Or if you have already opened a terminal in your running container (via Docker Desktop for instance), just run:
@@ -118,7 +118,7 @@ docker run -d \
   --restart unless-stopped \
   -v ~/.hermes-work:/opt/data \
   -p 8642:8642 \
-  nousresearch/hermes-agent gateway run
+  hamr-hub/Hermes-Agent gateway run
 
 # Personal profile
 docker run -d \
@@ -126,7 +126,7 @@ docker run -d \
   --restart unless-stopped \
   -v ~/.hermes-personal:/opt/data \
   -p 8643:8642 \
-  nousresearch/hermes-agent gateway run
+  hamr-hub/Hermes-Agent gateway run
 ```
 
 Why separate containers over profiles in Docker:
@@ -142,7 +142,7 @@ In Docker Compose, this just means declaring one service per profile with distin
 ```yaml
 services:
   hermes-work:
-    image: nousresearch/hermes-agent:latest
+    image: hamr-hub/Hermes-Agent:latest
     container_name: hermes-work
     restart: unless-stopped
     command: gateway run
@@ -152,7 +152,7 @@ services:
       - ~/.hermes-work:/opt/data
 
   hermes-personal:
-    image: nousresearch/hermes-agent:latest
+    image: hamr-hub/Hermes-Agent:latest
     container_name: hermes-personal
     restart: unless-stopped
     command: gateway run
@@ -171,7 +171,7 @@ docker run -it --rm \
   -v ~/.hermes:/opt/data \
   -e ANTHROPIC_API_KEY="sk-ant-..." \
   -e OPENAI_API_KEY="sk-..." \
-  nousresearch/hermes-agent
+  hamr-hub/Hermes-Agent
 ```
 
 Direct `-e` flags override values from `.env`. This is useful for CI/CD or secrets-manager integrations where you don't want keys on disk.
@@ -183,7 +183,7 @@ For persistent deployment with both the gateway and dashboard, a `docker-compose
 ```yaml
 services:
   hermes:
-    image: nousresearch/hermes-agent:latest
+    image: hamr-hub/Hermes-Agent:latest
     container_name: hermes
     restart: unless-stopped
     command: gateway run
@@ -205,7 +205,7 @@ services:
           cpus: "2.0"
 
   dashboard:
-    image: nousresearch/hermes-agent:latest
+    image: hamr-hub/Hermes-Agent:latest
     container_name: hermes-dashboard
     restart: unless-stopped
     command: dashboard --host 0.0.0.0
@@ -252,7 +252,7 @@ docker run -d \
   --restart unless-stopped \
   --memory=4g --cpus=2 \
   -v ~/.hermes:/opt/data \
-  nousresearch/hermes-agent gateway run
+  hamr-hub/Hermes-Agent gateway run
 ```
 
 ## What the Dockerfile does
@@ -278,13 +278,13 @@ The entrypoint script (`docker/entrypoint.sh`) bootstraps the data volume on fir
 Pull the latest image and recreate the container. Your data directory is untouched.
 
 ```sh
-docker pull nousresearch/hermes-agent:latest
+docker pull hamr-hub/Hermes-Agent:latest
 docker rm -f hermes
 docker run -d \
   --name hermes \
   --restart unless-stopped \
   -v ~/.hermes:/opt/data \
-  nousresearch/hermes-agent gateway run
+  hamr-hub/Hermes-Agent gateway run
 ```
 
 Or with Docker Compose:
@@ -325,7 +325,7 @@ docker run -d \
   --name hermes \
   --shm-size=1g \
   -v ~/.hermes:/opt/data \
-  nousresearch/hermes-agent gateway run
+  hamr-hub/Hermes-Agent gateway run
 ```
 
 ### Gateway not reconnecting after network issues
@@ -340,6 +340,6 @@ docker restart hermes
 
 ```sh
 docker logs --tail 50 hermes          # Recent logs
-docker run -it --rm nousresearch/hermes-agent:latest version     # Verify version
+docker run -it --rm hamr-hub/Hermes-Agent:latest version     # Verify version
 docker stats hermes                    # Resource usage
 ```

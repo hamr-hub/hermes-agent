@@ -7,7 +7,7 @@ license: MIT
 metadata:
   hermes:
     tags: [Google, Gmail, Calendar, Drive, Sheets, Docs, Contacts, Email, OAuth]
-    homepage: https://github.com/NousResearch/hermes-agent
+    homepage: https://github.com/hamr-hub/Hermes-Agent
     related_skills: [himalaya]
 ---
 
