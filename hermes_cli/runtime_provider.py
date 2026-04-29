@@ -83,6 +83,10 @@ def _detect_api_mode_for_url(base_url: str) -> Optional[str]:
         return "anthropic_messages"
     if hostname == "api.kimi.com" and "/coding" in normalized:
         return "anthropic_messages"
+    if "wanqing-api.corp.kuaishou.com/api/gateway" in normalized:
+        if "/v1/endpoints" in normalized:
+            return "chat_completions"
+        return "anthropic_messages"
     return None
 
 

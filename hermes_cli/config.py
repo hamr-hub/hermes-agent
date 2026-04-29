@@ -1493,6 +1493,29 @@ OPTIONAL_ENV_VARS = {
         "category": "provider",
         "advanced": True,
     },
+    "WANQING_API_KEY": {
+        "description": "Kuaishou Wanqing (万擎) API key",
+        "prompt": "Wanqing API Key",
+        "url": "https://wanqing.corp.kuaishou.com",
+        "password": True,
+        "category": "provider",
+    },
+    "WANQING_BASE_URL": {
+        "description": "Wanqing (万擎) OpenAI-compatible base URL (leave empty for default)",
+        "prompt": "Wanqing OpenAI base URL",
+        "url": None,
+        "password": False,
+        "category": "provider",
+        "advanced": True,
+    },
+    "WANQING_ANTHROPIC_BASE_URL": {
+        "description": "Wanqing (万擎) Anthropic-compatible base URL (leave empty for default)",
+        "prompt": "Wanqing Anthropic base URL",
+        "url": None,
+        "password": False,
+        "category": "provider",
+        "advanced": True,
+    },
 
     # ── Tool API keys ──
     "EXA_API_KEY": {

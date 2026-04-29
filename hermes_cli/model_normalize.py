@@ -102,6 +102,8 @@ _MATCHING_PREFIX_STRIP_PROVIDERS: frozenset[str] = frozenset({
     "xiaomi",
     "arcee",
     "ollama-cloud",
+    "wanqing",
+    "wanqing-anthropic",
     "custom",
 })
 

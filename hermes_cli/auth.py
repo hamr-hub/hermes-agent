@@ -372,6 +372,22 @@ PROVIDER_REGISTRY: Dict[str, ProviderConfig] = {
         api_key_env_vars=("AZURE_FOUNDRY_API_KEY",),
         base_url_env_var="AZURE_FOUNDRY_BASE_URL",
     ),
+    "wanqing": ProviderConfig(
+        id="wanqing",
+        name="Kuaishou Wanqing (OpenAI)",
+        auth_type="api_key",
+        inference_base_url="https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints",
+        api_key_env_vars=("WANQING_API_KEY",),
+        base_url_env_var="WANQING_BASE_URL",
+    ),
+    "wanqing-anthropic": ProviderConfig(
+        id="wanqing-anthropic",
+        name="Kuaishou Wanqing (Anthropic)",
+        auth_type="api_key",
+        inference_base_url="https://wanqing-api.corp.kuaishou.com/api/gateway",
+        api_key_env_vars=("WANQING_API_KEY",),
+        base_url_env_var="WANQING_ANTHROPIC_BASE_URL",
+    ),
 }
 
 

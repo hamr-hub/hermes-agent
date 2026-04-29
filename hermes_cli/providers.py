@@ -179,6 +179,18 @@ HERMES_OVERLAYS: Dict[str, HermesOverlay] = {
         transport="openai_chat",  # default; overridden by api_mode in config
         base_url_env_var="AZURE_FOUNDRY_BASE_URL",
     ),
+    # Kuaishou Wanqing (万擎) — OpenAI-compatible endpoint.
+    "wanqing": HermesOverlay(
+        transport="openai_chat",
+        base_url_override="https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints",
+        base_url_env_var="WANQING_BASE_URL",
+    ),
+    # Kuaishou Wanqing (万擎) — Anthropic-compatible endpoint.
+    "wanqing-anthropic": HermesOverlay(
+        transport="anthropic_messages",
+        base_url_override="https://wanqing-api.corp.kuaishou.com/api/gateway",
+        base_url_env_var="WANQING_ANTHROPIC_BASE_URL",
+    ),
 }
 
 
@@ -303,6 +315,15 @@ ALIASES: Dict[str, str] = {
     "arcee-ai": "arcee",
     "arceeai": "arcee",
 
+    # wanqing (万擎)
+    "vanchin": "wanqing",
+    "万擎": "wanqing",
+    "wanqing-openai": "wanqing",
+    "wanqing-anthropic": "wanqing-anthropic",
+    "kat": "wanqing",
+    "katcoder": "wanqing",
+    "kat-coder": "wanqing",
+
     # gmi
     "gmi-cloud": "gmi",
     "gmicloud": "gmi",
@@ -333,6 +354,8 @@ _LABEL_OVERRIDES: Dict[str, str] = {
     "local": "Local endpoint",
     "bedrock": "AWS Bedrock",
     "ollama-cloud": "Ollama Cloud",
+    "wanqing": "Kuaishou Wanqing (OpenAI)",
+    "wanqing-anthropic": "Kuaishou Wanqing (Anthropic)",
 }
 
 
@@ -469,6 +492,10 @@ def determine_api_mode(provider: str, base_url: str = "") -> str:
             if "api.kimi.com/coding" in url_lower:
                 return "anthropic_messages"
             if url_lower.endswith("/anthropic") or "api.anthropic.com" in url_lower:
+                return "anthropic_messages"
+            if "wanqing-api.corp.kuaishou.com/api/gateway" in url_lower:
+                if "/v1/endpoints" in url_lower:
+                    return "chat_completions"
                 return "anthropic_messages"
             if "api.openai.com" in url_lower:
                 return "codex_responses"

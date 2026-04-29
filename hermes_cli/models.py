@@ -433,6 +433,28 @@ _PROVIDER_MODELS: dict[str, list[str]] = {
     # Azure Foundry: user-provided endpoint and model.
     # Empty list because models depend on the endpoint configuration.
     "azure-foundry": [],
+    # Kuaishou Wanqing (万擎) — OpenAI-compatible endpoint.
+    "wanqing": [
+        "glm-5.1",
+        "glm-5",
+        "kat-coder-pro-v2",
+        "kat-coder-pro-v1",
+        "kat-coder-air-v1",
+        "deepseek-v4-pro",
+        "deepseek-v4-flash",
+        "deepseek-chat",
+        "qwen3.6-plus",
+        "qwen3-coder-plus",
+    ],
+    # Kuaishou Wanqing (万擎) — Anthropic-compatible endpoint.
+    # Models accessible through the Anthropic Messages API surface.
+    "wanqing-anthropic": [
+        "claude-opus-4-7",
+        "claude-opus-4-6",
+        "claude-sonnet-4-6",
+        "claude-sonnet-4-5",
+        "claude-haiku-4-5",
+    ],
 }
 
 # Vercel AI Gateway: derive the bare-model-id catalog from the curated
@@ -791,6 +813,8 @@ CANONICAL_PROVIDERS: list[ProviderEntry] = [
     ProviderEntry("opencode-go",    "OpenCode Go",              "OpenCode Go (open models, $10/month subscription)"),
     ProviderEntry("bedrock",        "AWS Bedrock",              "AWS Bedrock (Claude, Nova, Llama, DeepSeek — IAM or API key)"),
     ProviderEntry("azure-foundry",  "Azure Foundry",            "Azure Foundry (OpenAI-style or Anthropic-style endpoint — your Azure AI deployment)"),
+    ProviderEntry("wanqing",        "Kuaishou Wanqing (OpenAI)", "Kuaishou Wanqing 万擎 (OpenAI-compatible — glm-5, kat-coder, deepseek, qwen)"),
+    ProviderEntry("wanqing-anthropic", "Kuaishou Wanqing (Anthropic)", "Kuaishou Wanqing 万擎 (Anthropic-compatible — claude models)"),
 ]
 
 # Derived dicts — used throughout the codebase
@@ -862,6 +886,11 @@ _PROVIDER_ALIASES = {
     "nemotron": "nvidia",
     "ollama": "custom",  # bare "ollama" = local; use "ollama-cloud" for cloud
     "ollama_cloud": "ollama-cloud",
+    "vanchin": "wanqing",
+    "wanqing-openai": "wanqing",
+    "kat": "wanqing",
+    "katcoder": "wanqing",
+    "kat-coder": "wanqing",
 }
 
 
